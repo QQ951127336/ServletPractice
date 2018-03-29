@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/wangEditor.css">
+    <title>PictureUpload</title>
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/vendor/jquery.ui.widget.js"></script>
+    <script src="js/jquery.iframe-transport.js"></script>
+    <script src="js/jquery.fileupload.js"></script>
+    <script type="text/javascript" src="js/wangEditor.js"></script>
+</head>
+<body>
+<input id="fileupload" type="file" name="files[]" data-url="/UploadServlet" multiple>
+<textarea id='textarea1' style='height:200px; max-height:400px; width:100%;'></textarea>
+<script>
+    var editor;
+    $(function () {
+        dataType:"text";
+        $('#fileupload').fileupload({
+            done: function (e,data) {
+                var result = data.result;
+                if (typeof result == "object")
+                {
+                    var data = $(result).contents().find('body').html();
+                    editor.append(data);
+                }else {
+                    editor.append(result);
+                }
+            }
+        });
+    });
+    $(function(){
+         editor = $('#textarea1').wangEditor({
+            uploadImgComponent: $('#fileupload'),
+        });
+    });
+</script>
+</body>
+</html>
