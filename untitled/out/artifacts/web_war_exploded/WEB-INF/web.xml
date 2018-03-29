@@ -40,4 +40,13 @@
         <servlet-name>Refresh</servlet-name>
         <url-pattern>/Refresh</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShowError</servlet-name>
+        <servlet-class>ShowError</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShowError</servlet-name>
+        <url-pattern>/ShowError</url-pattern>
+    </servlet-mapping>
 </web-app>
