@@ -60,6 +60,33 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>ReadCookies</servlet-name>
+        <servlet-name>ReadCookies</servlet-name>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReadCookies</servlet-name>
+        <url-pattern>/ReadCookies</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteCookies</servlet-name>
+        <servlet-class>DeleteCookies</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteCookies</servlet-name>
+        <url-pattern>/DeleteCookies</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SessionTrack</servlet-name>
+        <servlet-class>SessionTrack</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SessionTrack</servlet-name>
+        <url-pattern>/SessionTrack</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ErrorHandler</servlet-name>
         <servlet-class>ErrorHandler</servlet-class>
     </servlet>
@@ -67,6 +94,16 @@
         <servlet-name>ErrorHandler</servlet-name>
         <url-pattern>/ErrorHandler</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>YigoServlet</servlet-name>
+        <servlet-class>YigoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>YigoServlet</servlet-name>
+        <url-pattern>/YigoServlet</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>CookieDeal</servlet-name>
         <servlet-class>CookieDeal</servlet-class>
@@ -92,8 +129,9 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-
-
+    <session-config>
+        <session-timeout>15</session-timeout>
+    </session-config>
 
 
 </web-app>

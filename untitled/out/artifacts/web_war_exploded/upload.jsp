@@ -35,30 +35,6 @@
 
 <div id="PicWindow"></div>
 <script type="text/javascript">
-    function preview(file)
-    {
-
-        var picWindow = document.getElementById("PicWindow");
-        if (file.files && file.files[0])
-        {
-            var reader = new FileReader();
-            reader.onload = function(evt){
-                picWindow.innerHTML = '<img src="' + evt.target.result + '" />';
-            }
-            reader.readAsDataURL(file.files[0]);
-        }
-        else
-        {
-            var s=document.createElement("option");
-            s.text="Upload";
-            s.value = "data";
-
-            var insertImg = document.createElement("div");
-            picWindow.appendChild(insertImg);
-            insertImg.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=bEnabled,sizingMethod=scale,src=\'' + file.value + '\'"></div>';
-
-        }
-    };
     $("#aimIframe").load(function(){
         var data = $(this).contents().find('#aimImg').html();
         if (data!="undefine"){
