@@ -314,9 +314,10 @@ $.extend($E, {
         'modalSmall': '<div class="wangEditor-modal wangEditor-modal-small">{content}</div>',
         'modalMini': '<div class="wangEditor-modal wangEditor-modal-mini">{content}</div>',
         //modal header
-        'modalHeader': '<div class="wangEditor-modal-header clearfix">' + 
-                            '<a href="#" commandName="close" class="wangEditor-modal-header-close"><i class="wangeditor-menu-img-cancel"></i></a>' + 
-                            '<b>{title}</b>' + 
+        'modalHeader': '<div class="wangEditor-modal-header clearfix">' +
+                            '<a href="#" commandName="close" class="wangEditor-modal-header-close"><i class="wangeditor-menu-img-cancel"></i></a>' +
+                            '<b>{title}</b>' +
+                            '<h1>12222222222211</h1> '+
                             '<div class="wangEditor-modal-header-line"></div>' + 
                         '</div>',
         //编辑框的容器

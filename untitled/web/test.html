@@ -9,9 +9,37 @@
     <script src="js/jquery.iframe-transport.js"></script>
     <script src="js/jquery.fileupload.js"></script>
     <script type="text/javascript" src="js/wangEditor.js"></script>
+    <style type="text/css">
+        #fileupload{
+            opacity: 0;
+            -ms-filter: 'alpha(opacity=0)';
+        }
+        #picUploadButton{
+            opacity: 0.5;
+            background:url("/pic/on.png") no-repeat;
+            width:100%;
+            height:40%;
+            background-size:100% 100%;
+        }
+        #picUploadButton:hover{
+            opacity: 1.0;
+            background:url("/pic/on.png") no-repeat;
+            width:100%;
+            height:40%;
+            background-size:100% 100%;
+        }
+    </style>
 </head>
 <body>
-<input id="fileupload" type="file" name="files[]" data-url="/YigoServlet" multiple>
+<span>
+    <span>upload</span>
+    <input type="file">
+</span>
+<br>
+<br>
+<div id="picUploadButton">
+    <input id="fileupload" style="height: 100px;width: 200px" type="file" name="files[]" data-url="/YigoServlet" multiple>
+</div>
 <textarea id='textarea1' style='height:200px; max-height:400px; width:100%;'></textarea>
 <script>
     var editor;
@@ -20,19 +48,21 @@
         $('#fileupload').fileupload({
             done: function (e,data) {
                 var result = data.result;
+                var pic;
                 if (typeof result == "object")
                 {
-                    var data = $(result).contents().find('body').html();
-                    editor.append(data);
+                    pic = $(result).contents().find("body").html();
                 }else {
-                    editor.append(result);
+                   pic = result;
                 }
+                pic = "<img id='aim' src='data:image/jpeg;base64,"+pic+"'/>";
+                editor.append(pic);
             }
         });
     });
     $(function(){
          editor = $('#textarea1').wangEditor({
-            uploadImgComponent: $('#fileupload'),
+            uploadImgComponent: $('#picUploadButton'),
         });
     });
 </script>

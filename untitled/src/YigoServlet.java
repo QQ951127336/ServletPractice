@@ -26,7 +26,7 @@ public class YigoServlet extends HttpServlet {
     private static final int MAX_REQUEST_SIZE = 1024*1024*50;
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         if (!ServletFileUpload.isMultipartContent(request)){
             PrintWriter out = response.getWriter();
             out.println("It is not multipart file.");
@@ -41,42 +41,44 @@ public class YigoServlet extends HttpServlet {
         fileUpload.setSizeMax(MAX_REQUEST_SIZE);
         fileUpload.setFileSizeMax(MAX_FILE_SIZE);
         fileUpload.setHeaderEncoding("UTF-8");
+        PrintWriter out = response.getWriter();
         try{
             List<FileItem> formItems = fileUpload.parseRequest(request);
             if (formItems != null && formItems.size() > 0){
                 for (FileItem item:formItems){
                     if (!item.isFormField()){
-                        String fileName = new File(item.getName()).getName();
-                        String picCode = getImgBase64(item.getInputStream(),fileName);
-                        String outContent = "<head></head><body><img id='aim' src='"+picCode+"'/></body>";
-                        response.getWriter().println(outContent);
+                        byte[] data = getImgBinary(item.getInputStream());
+                        String picCode = getImgBase64(data);
+                        out.write(picCode);
                     }
                 }
             }
         } catch (FileUploadException e) {
-            e.printStackTrace();
+            throw new FileUploadIOException(e.getMessage());
+        }finally {
+            out.close();
         }
     }
-    private String getImgBase64(InputStream inputStream,String filename){
+    private byte[] getImgBinary(InputStream inputStream) throws IOException{
         InputStream picInputStream = inputStream;
         if (picInputStream == null)
-            return "";
+            return null;
         byte[] data = null;
         try{
             data = new byte[picInputStream.available()];
             picInputStream.read(data);
             picInputStream.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw e;
         }
+        return data;
+    }
+    private String getImgBase64(byte[] data){
         BASE64Encoder encoder = new BASE64Encoder();
         String picCode = encoder.encode(data);
-        String[] tmpSuffix = filename.split("\\.");
-        if (tmpSuffix.length > 2){
-            picCode = "data:image/"+tmpSuffix[1]+";base64,"+picCode;
-        }else{
-            picCode = "data:image/jpeg;base64,"+picCode;
-        }
         return picCode;
+    }
+    class FileUploadIOException extends IOException{
+        public FileUploadIOException(String message){super("没有得到上传文件 : "+message);}
     }
 }
