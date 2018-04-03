@@ -31,10 +31,7 @@
     </style>
 </head>
 <body>
-<span>
-    <span>upload</span>
-    <input type="file">
-</span>
+
 <br>
 <br>
 <div id="picUploadButton">
@@ -57,6 +54,9 @@
                 }
                 pic = "<img id='aim' src='data:image/jpeg;base64,"+pic+"'/>";
                 editor.append(pic);
+                //插入图片后，关闭小窗口
+                $(".wangEditor-modal-small").hide();
+
             }
         });
     });

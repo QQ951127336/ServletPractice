@@ -317,7 +317,6 @@ $.extend($E, {
         'modalHeader': '<div class="wangEditor-modal-header clearfix">' +
                             '<a href="#" commandName="close" class="wangEditor-modal-header-close"><i class="wangeditor-menu-img-cancel"></i></a>' +
                             '<b>{title}</b>' +
-                            '<h1>12222222222211</h1> '+
                             '<div class="wangEditor-modal-header-line"></div>' + 
                         '</div>',
         //编辑框的容器
@@ -660,8 +659,8 @@ $.extend($E.langs, {
 			'insertImage': {
 				'title': '图片',
 				'modal': {
-					'insertWeb': '插入网络图片',
-					'insertLocal': '上传本地图片',
+					'insertWeb': '网络图片',
+					'insertLocal': '上传图片',
 
 					'url': '网址',
 					'title': '标题',
@@ -2750,18 +2749,19 @@ $.extend($E.fn, {
             langUnsafe = langCommon.unsafeAlert;
 
 
-        var content =   '<p>' +
-                        '   <span id="' + alertInfoId + '">' +langInsertWeb+ '</span> ' +
-                        '   <a href="#" id="' + changeLinkId + '"></a>' +
+        var content =   
+                        '<p>' +
+                        '<a id="localPicture" style="font-weight: bold">本地图片</a><a id="webPicture" style="margin-left: 10px;color:gray">网络图片</a>'+
                         '</p>' +
                         '<div id="' + webImgContainerId + '">' +
-                        '   <p>' +langUrl+ '：<input id="' + urlTxtId + '" type="text" style="width:300px;" placeholder="http://"/></p>' +
-                        '   <p>' +langTitle+ '：<input id="' + titleTxtId + '" type="text" style="width:300px;"/></p>' +
-                        '<p><button id="' + btnId + '" type="button" class="wangEditor-modal-btn">' +langBtn+ '</button></p>' +
+                        '<div style="height: 20px;width:10px;"></div>'+
+                        '   <p>' + '<input id="' + urlTxtId + '" type="text"  style="width:350px;border-style:solid;border-bottom-width: 1px;border-right-width:0px;border-left-width: 0px; border-top-width: 0px;" placeholder="图片链接"/></p>' +
+                        '<p><div style="width:200px;float: left;"></div><button style="margin-left:265px;background-color:#ffffff;color:#6a88e5;border:none;" id="' + btnId + '" type="button"  class="wangEditor-modal-btn">' +langBtn+ '</button></p>' +
                         '</div>',
             $webimg_modal = $(
                 $E.htmlTemplates.modalSmall.replace('{content}', content)
             );
+
 
         //处理 上传图片 和 插入网络图片 的显示与隐藏关系
         $(function(){
@@ -2795,8 +2795,24 @@ $.extend($E.fn, {
                 $webimg_modal.append(uploadImgComponent);
                 //显示上传图片
                 showUploadImg();
-            }
+            };
+            $('#localPicture').click(function(e){
+                $('#localPicture').css("color","black");
+                $('#webPicture').css("color","gray");
+                $('#localPicture').css("font-weight","bold");
+                $('#webPicture').css("font-weight","normal");
+                uploadImgComponent.show();
+                $webImgContainerId.hide();
+            });
+            $('#webPicture').click(function(e){
+                $('#localPicture').css("color","gray");
+                $('#webPicture').css("color","black");
+                $('#localPicture').css("font-weight","normal");
+                $('#webPicture').css("font-weight","bold");
 
+                uploadImgComponent.hide();
+                $webImgContainerId.show();
+            });
             //切换
             $changeLinkId.click(function(e){
                 var txt = $changeLinkId.text();
